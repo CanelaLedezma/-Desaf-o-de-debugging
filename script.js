@@ -2,6 +2,8 @@ const input = document.getElementById("guessInput")
 const button = document.getElementById("guessBtn")
 const message = document.getElementById("message")
 const attemptsText = document.getElementById("attempts")
+const historialText = document.getElementById("historial");
+
 
 let secretNumber = Math.floor(Math.random() * 100) + 1;
 let attempts = 0
@@ -9,6 +11,7 @@ let attempts = 0
 button.addEventListener("click", checkGuess)
 
 let historial = "";
+historialText.innerText = "";
 function checkGuess(){
 
   if (input.value === "") {
@@ -24,15 +27,16 @@ function checkGuess(){
   }
 
   historial = historial + guess + " ";
-
+  historialText.innerText = "Intentos anteriores: " + historial;
   attempts = attempts + 1
 
-if (attempts === 10){
+if (attempts >= 10){
   message.innerText = "Perdiste. El número era " + secretNumber;
 
   secretNumber = Math.floor(Math.random() * 100) + 1;
   attempts = 0;
   historial = "";
+  historialText.innerText = "";
   attemptsText.innerText = attempts;
 
   return;
@@ -45,6 +49,7 @@ if (attempts === 10){
     secretNumber = Math.floor(Math.random() * 100) + 1;
     attempts = 0;
     historial = "";
+    historialText.innerText = "";
     attemptsText.innerText = attempts;
     input.value = "";
 
