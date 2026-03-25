@@ -3,17 +3,17 @@ const button = document.getElementById("guessBtn")
 const message = document.getElementById("message")
 const attemptsText = document.getElementById("attempts")
 const historialText = document.getElementById("historial");
-
+const reiniciar = document.getElementById("resetBtn");
 
 let secretNumber = Math.floor(Math.random() * 100) + 1;
 let attempts = 0
-
-button.addEventListener("click", checkGuess)
-
 let historial = "";
-historialText.innerText = "";
-function checkGuess(){
 
+button.addEventListener("click", checkGuess);
+reiniciar.addEventListener("click", reiniciarJuego);
+
+
+function checkGuess(){
   if (input.value === "") {
     message.innerText = "Ingresá un número";
     return;
@@ -26,34 +26,24 @@ function checkGuess(){
     return;
   }
 
-  historial = historial + guess + " ";
-  historialText.innerText = "Intentos anteriores: " + historial;
   attempts = attempts + 1
+  historial += guess + " ";
+  historialText.innerText = "Intentos anteriores: " + 
+  historial;
+  attempts.innerText = attempts;
 
-if (attempts >= 10){
+if (attempts >= 10 && guess !== secretNumber){
   message.innerText = "Perdiste. El número era " + secretNumber;
-
-  secretNumber = Math.floor(Math.random() * 100) + 1;
-  attempts = 0;
-  historial = "";
-  historialText.innerText = "";
-  attemptsText.innerText = attempts;
-
-  return;
+ reiniciarJuego();
+ return;
 }
 
   if(guess === secretNumber){
 
     message.innerText = "¡Ganaste!"
     
-    secretNumber = Math.floor(Math.random() * 100) + 1;
-    attempts = 0;
-    historial = "";
-    historialText.innerText = "";
-    attemptsText.innerText = attempts;
-    input.value = "";
-
-  return;
+     reiniciarJuego();
+ return;
   }
 
   else if(guess < secretNumber){
@@ -68,6 +58,13 @@ if (attempts >= 10){
   input.value = "";
    
 }
-
+function reiniciarJuego() {
+  secretNumber = Math.floor(Math.random() * 100) + 1;
+  attempts = 0;
+  historial = "";
+  attemptsText.innerText = attempts;
+  historialText.innerText = "";
+  input.value = "";
+}
 input.addEventListener("keyup", (e) => { if (e.key === "Enter") { checkGuess();}
 });
