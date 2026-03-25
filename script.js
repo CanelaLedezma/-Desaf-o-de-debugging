@@ -28,9 +28,8 @@ function checkGuess(){
 
   attempts = attempts + 1
   historial += guess + " ";
-  historialText.innerText = "Intentos anteriores: " + 
-  historial;
-  attempts.innerText = attempts;
+  historialText.innerText = "Intentos anteriores: " + historial;
+  attemptsText.innerText = attempts;
 
 if (attempts >= 10 && guess !== secretNumber){
   message.innerText = "Perdiste. El número era " + secretNumber;
